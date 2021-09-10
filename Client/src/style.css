@@ -1,0 +1,495 @@
+body {
+  margin: 0;
+  font-family: "Quicksand", sans-serif;
+  background-color: #EAFEFF;
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+}
+
+.header-main {
+  background-image: url("./images/logo.svg");
+  background-color: #318488;
+  height: 150px;
+}
+.header-main .nav-bar {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+.header-main .nav-bar span {
+  color: white;
+  font-weight: 500;
+  font-size: 45px;
+  margin: 38px 37px 37px 47px;
+}
+.header-main .nav-bar button {
+  margin: 25px 15px 15px 15px;
+  font-size: 15px;
+  color: white;
+  background-color: #4ca8ad;
+  border: none;
+  padding: 7px;
+  font-weight: bold;
+}
+
+.psearch {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  height: 50px;
+}
+
+.search {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-top: -30px;
+}
+
+.search #inptitle {
+  border: 2px white solid;
+  border-right-color: #e8e4e4;
+  width: 350px;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 5px 0px 0px 5px;
+  font-family: "Quicksand", sans-serif;
+}
+
+.search #inploc {
+  border: 2px #fbfbfb solid;
+  border-right-color: #e8e4e4;
+  width: 350px;
+  height: 50px;
+  font-size: 20px;
+  font-family: "Quicksand", sans-serif;
+}
+
+.search #inpjtype {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  border: 2px #fbfbfb solid;
+  width: 350px;
+  font-size: 20px;
+  border-radius: 0px 5px 5px 0px;
+  background-color: white;
+}
+
+.search div {
+  padding: 5px 0px 0px 10px;
+}
+
+.search #inp:focus {
+  background-color: white;
+}
+
+.search #btt {
+  margin-right: 10px;
+  width: 90px;
+  height: 40px;
+  color: white;
+  background-color: #82c9c9;
+  border: 0px;
+  border-radius: 2px;
+}
+
+.result {
+  width: 100%;
+  margin-top: 20px;
+  margin-left: 70px;
+  display: grid;
+  grid-template-columns: repeat(3, 400px);
+}
+
+.result div {
+  padding: 10px 10px;
+  margin: 10px;
+  width: 250px;
+  box-shadow: 0px 10px 20px #B5F3F3;
+  border-radius: 4px;
+  border: 2px white solid;
+  background-color: white;
+  overflow-wrap: break-word;
+}
+
+.result img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.result div:hover {
+  border-left: 3px #5ba4a4 solid;
+  box-shadow: 0px 10px 30px #7CFFFF;
+}
+
+.result h3 {
+  color: grey;
+  font-size: 12px;
+}
+
+.result h2 {
+  font-size: 23px;
+  font-weight: 500;
+}
+
+.despar {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+  margin-top: -50px;
+}
+
+.despar .header {
+  margin-top: -20px;
+  display: flex;
+  width: 500px;
+  flex-flow: row wrap;
+  background-color: white;
+  padding: 10px 10px;
+  justify-content: space-between;
+  border-radius: 0px 10px 0px 10px;
+}
+
+.despar .header button,
+.body button {
+  margin-top: 10px;
+  height: 30px;
+  color: #82c9c9;
+  background-color: #dff4fa;
+  border: 0px white;
+  border-radius: 3px 3px;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.despar .header h2 {
+  margin-left: 10px;
+  font-family: Spartan;
+  font-size: 20px;
+  width: 300px;
+  align-self: flex-start;
+  /*word-wrap: break-word;*/
+}
+
+.despar .body {
+  margin-top: 10px;
+  background-color: white;
+}
+
+.despar .body .title {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.despar .body h1 {
+  margin: 15px 15px;
+  font-family: Spartan;
+  font-size: 20px;
+  width: 300px;
+  align-self: flex-start;
+  word-wrap: break-word;
+}
+
+.despar .body button {
+  margin: 15px 15px;
+}
+
+.description {
+  width: 500px;
+  padding: 10px 10px;
+}
+
+.login-form {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 400px;
+  height: 450px;
+  background-color: white;
+  margin-left: 35%;
+  margin-top: 10px;
+  border-radius: 2%;
+  padding: 20px;
+}
+.login-form span {
+  font-weight: bold;
+}
+.login-form input {
+  align-self: stretch;
+  height: 30px;
+}
+.login-form #btn-submit {
+  align-self: center;
+  width: 70px;
+  background-color: cyan;
+  border-radius: 5%;
+  border: 0px;
+  color: white;
+}
+
+.post-job-form {
+  display: grid;
+  margin: 2% 20%;
+  grid-gap: 10px;
+  grid-template-columns: 200px 500px 300px;
+}
+.post-job-form input[type=text] {
+  grid-column: 2/3;
+  width: 500px;
+  height: 20px;
+}
+.post-job-form #row-textarea {
+  grid-column: 2/3;
+  width: 510px;
+  height: 500px;
+}
+.post-job-form span {
+  grid-column: 1/2;
+  margin-right: 10px;
+  font-weight: bold;
+  font-size: 17px;
+}
+.post-job-form #btn-submit {
+  margin: auto;
+  width: 100px;
+  height: 30px;
+  grid-column: 2/3;
+  background-color: cyan;
+}
+.post-job-form #post-job-error {
+  grid-column: 3/4;
+  color: red;
+  margin-left: 5px;
+  font-size: 15px;
+}
+
+#btn-prof-edit {
+  margin-left: 40px;
+  border: 3px cyan solid;
+  border-radius: 5px;
+  color: cyan;
+}
+
+.profile-header {
+  display: flex;
+  flex-flow: row wrap;
+  width: 200px;
+  justify-content: space-around;
+}
+
+.profile-body {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: 200px 500px;
+}
+.profile-body label {
+  grid-column: 1/2;
+  margin-left: 40px;
+  font-weight: bold;
+}
+.profile-body span {
+  grid-column: 2/3;
+}
+.profile-body span button {
+  margin-left: 50%;
+  font-size: 14px;
+  color: white;
+  background-color: #e01b1b;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 2%;
+}
+
+.profile-recruiter {
+  margin: 40px;
+}
+.profile-recruiter #label-job-list {
+  font-size: 20px;
+  font-weight: 500;
+}
+.profile-recruiter div {
+  display: flex;
+  flex-flow: column wrap;
+}
+.profile-recruiter div div {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-content: center;
+  box-sizing: border-box;
+  margin: 10px 10px 5px 40px;
+  padding: 10px;
+  width: 740px;
+  border: 2px white solid;
+  background-color: white;
+  font-size: 20px;
+  box-shadow: 0px 10px 30px #BAFFFF;
+  padding: 10px;
+}
+.profile-recruiter div div:hover {
+  border-left: 3px #5ba4a4 solid;
+  box-shadow: 0px 10px 30px #7CFFFF;
+}
+.profile-recruiter div div span {
+  width: 180px;
+}
+.profile-recruiter div div button {
+  border: 3px cyan solid;
+  border-radius: 5px;
+  color: cyan;
+}
+
+.job-application {
+  width: 700px;
+  background-color: white;
+  margin: auto;
+  margin-top: 15px;
+  border-radius: 2%;
+  padding: 20px;
+}
+.job-application div {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  grid-gap: 20px;
+}
+.job-application div label {
+  grid-column: 1/2;
+  font-weight: bold;
+  font-size: 17px;
+}
+.job-application div span {
+  grid-column: 2/3;
+  font-size: 17px;
+}
+
+.form {
+  display: grid;
+  grid-row-gap: 20px;
+  grid-column-gap: 10px;
+  grid-template-columns: 15px 150px 250px 20px;
+}
+.form #btn {
+  grid-column: 4/5;
+}
+.form input {
+  grid-column: 3/4;
+  width: 250px;
+  height: 20px;
+}
+.form label {
+  grid-column: 2/3;
+  width: 100px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.form button {
+  border-width: 0px 0px;
+  grid-column: 3/4;
+}
+.form #submit {
+  width: 75px;
+  margin-bottom: 10px;
+}
+.form .error {
+  grid-column: 3/4;
+  width: 250px;
+  height: 20px;
+  width: 200px;
+  font-weight: bold;
+  color: red;
+}
+
+.error {
+  width: 200px;
+  font-weight: bold;
+  color: red;
+}
+
+.center {
+  margin: 2% 0 0 30%;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-main {
+  position: fixed;
+  background: white;
+  width: 40%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  border-radius: 5px;
+  transform: translate(-50%, -50%);
+}
+
+.mdl-cls-btn {
+  margin-left: 95%;
+  border-width: 0px 0px;
+}
+
+.display-block {
+  display: block;
+}
+
+.btn-gnl {
+  margin: 10px;
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 2px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.delete-prompt {
+  height: 150px;
+  background-color: #425374;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+}
+.delete-prompt span {
+  font-size: 20px;
+  color: #9cadc2;
+  font-weight: 500;
+}
+
+.btn-cancel {
+  color: #425374;
+  background: #88a0b8;
+}
+
+.btn-delete {
+  color: white;
+  background: #ef5d5d;
+}
+
+.btn-del-profile {
+  margin: 0% 50% 2% 50%;
+  color: white;
+  background: #ef5d5d;
+  width: 150px;
+  height: 40px;
+  border: none;
+  border-radius: 2px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/*# sourceMappingURL=style.css.map */

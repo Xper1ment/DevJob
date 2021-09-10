@@ -1,0 +1,60 @@
+import { useState } from 'react';
+import Modal from './Modal';
+import useJobApi from './useJobApi';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+const DeletePrompt = ({ whatToDelete , url , myref , showButton = true , styleDelBtn = "" }) =>{
+    
+    const [ canShow , setPromptState ] = useState(false); 
+    const [ data ,{ isError }, setUrl ] = useJobApi();
+    const showPrompt = () => {
+        setPromptState( true );
+    };
+    
+    const hidePrompt = () =>{
+        setPromptState( false );
+    };
+    
+    const handleDelete = ()=>{
+        setUrl({
+            url ,
+            requestOptions : {
+                method : 'DELETE'
+            }
+        })
+        hidePrompt();
+    }
+    
+    return(
+        <>
+        {
+            (showButton)? 
+                (<button className = { styleDelBtn } 
+                         onClick = { showPrompt }>
+                         Delete { whatToDelete }
+                </button>):
+                (<DeleteIcon    
+                    style = {{  "color" : "red" }}
+                    onClick = { showPrompt }
+                />)
+        }
+        {   
+            canShow && 
+                <Modal  show = { canShow } 
+                        hideModal = { hidePrompt }
+                        setModalState = { setPromptState }
+                        myref = { myref }>
+                    <div className = "delete-prompt">
+                        <span>Are you sure you want to delete { whatToDelete } ?</span>
+                        <div>
+                            <button className = "btn-gnl btn-cancel" onClick = {hidePrompt}>Cancel</button>
+                            <button className = "btn-gnl btn-delete"onClick = {handleDelete}>Delete</button>
+                        </div>
+                    </div>
+                </Modal>
+        }
+        </>
+    )
+}
+
+export default DeletePrompt;
