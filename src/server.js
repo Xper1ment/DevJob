@@ -15,7 +15,7 @@ const { getAllJobs , getJobDescription } = require('./resources/job/job.controll
 const app = express();
 const port = process.env.PORT||5000;
 
-app.use(express.static(path.join(__dirname, 'Client/build')));
+app.use(express.static(path.join(__dirname, '../Client/build')));
 
 //app.use(cors);
 app.use(bodyParser.json());
@@ -32,13 +32,13 @@ app.use('/api/apply',applyRouter);
 app.get('/positions.json', getAllJobs)
 
 if(process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'Client/build')));
+    app.use(express.static(path.join(__dirname, '../Client/build')));
     app.get('*', (req, res) => {
-      res.sendfile(path.join(__dirname = 'Client/build/index.html'));
+      res.sendfile(path.join(__dirname = '../Client/build/index.html'));
     })
   } 
     app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname+'/Client/public/index.html'));
+    res.sendFile(path.join(__dirname+'../Client/public/index.html'));
 })
 
 const start = async () =>{
