@@ -27,7 +27,7 @@
     "client-install": "npm install --prefix Client",
     "server": "nodemon src/index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "heroku-postbuild" : " NPM_CONFIG_PRODUCTION=false npm install && (cd Client && npm run build)"
+    "heroku-postbuild" : " NPM_CONFIG_PRODUCTION=false npm install && (cd Client && npm install && npm run build)"
   },
   "author": "",
   "license": "ISC"
