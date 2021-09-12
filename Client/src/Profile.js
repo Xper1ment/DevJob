@@ -191,6 +191,7 @@ function Profile(){
                                         url = "/api/user"
                                         myref = { myref }
                                         styleDelBtn = "btn-del-profile"
+                                        deleteProfile = { true }
                         />
                  
         </>

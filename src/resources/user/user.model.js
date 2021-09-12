@@ -63,10 +63,6 @@ userSchema.pre('save',function(next){
     })
 })
 
-userSchema.post('remove' , function( doc , next ){
-    Job.deleteMany({ _id : { $in :doc.job_list } });
-    next();
-})
 
 userSchema.methods.checkPassword = function(password){
     const passwordHash = this.password;

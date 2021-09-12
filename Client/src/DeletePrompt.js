@@ -1,12 +1,17 @@
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import Modal from './Modal';
+import useRequireAuth from './useRequireAuth';
 import useJobApi from './useJobApi';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { Redirect } from 'react-router-dom';
 
-const DeletePrompt = ({ whatToDelete , url , myref , showButton = true , styleDelBtn = "" }) =>{
+const DeletePrompt = ({ whatToDelete , url , myref , showButton = true , styleDelBtn = "", deleteProfile = false }) =>{
     
     const [ canShow , setPromptState ] = useState(false); 
     const [ data ,{ isError }, setUrl ] = useJobApi();
+    const [ redirect , setRedirect ] = useState(false);
+    const { setLoginState , setAuthorState } = useRequireAuth();
+
     const showPrompt = () => {
         setPromptState( true );
     };
@@ -23,8 +28,20 @@ const DeletePrompt = ({ whatToDelete , url , myref , showButton = true , styleDe
             }
         })
         hidePrompt();
+        setRedirect(true);
     }
-    
+
+    useEffect(() => {
+        if(deleteProfile && redirect ){
+            localStorage.clear();
+            setAuthorState(false);
+            setLoginState(false);
+        }
+    }, [ redirect ])
+
+    if(redirect)
+        return <Redirect to = "/login"/>
+
     return(
         <>
         {

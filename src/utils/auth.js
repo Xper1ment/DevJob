@@ -38,15 +38,15 @@ const signUp = async (req , res) =>{
 const signIn = async (req , res) =>{
     const { email , password , isRecruiter } = req.body;
     try{
-        console.log(req.body , 1)
-        let user = await User.findOne({ email }).exec();
-        if(user.isRecruiter === false && isRecruiter === true ){
-            return res.status(401).json({ message : 'user not a recruiter'});
-        }
-
+        const user = await User.findOne({ email }).exec();
+        
         if(!user) 
             return res.status(401).json({ message : 'user not registered'})
         
+            if(user.isRecruiter === false && isRecruiter === true ){
+            return res.status(401).json({ message : 'user not a recruiter'});
+        }
+
         const matchPassword = await user.checkPassword(password); 
         console.log(matchPassword)
         

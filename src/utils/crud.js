@@ -1,3 +1,5 @@
+const App = require('./../resources/application/application.model') 
+
 const getOne = (model) => async ( req ,res ) => {
     try{
      
@@ -15,20 +17,6 @@ const getOne = (model) => async ( req ,res ) => {
      }
 }
 
-/*const getMany = model => async ( req , res ) => {
-     try{
-        const doc = await model.find({ created_by : req.user.id })
-                            .lean()
-                            .exec();
-        
-        return res.status(200).json({ data : doc });
-
-     } catch(e){
-        console.error(e);
-        return res.status(400).end();
-     }
-}
-*/
 const createOne = model => async (req , res) =>{
     try{
         console.log(req.body , 1 );
@@ -68,11 +56,10 @@ const updateOne = model =>async (req , res) => {
 
 const removeOne = model => async (req , res) => {
     try{
-       let user =  await model.findOneAndRemove({ _id : req.user._id });
-       await App.deleteMany(    { _id : { $in : user.application_list} })
+       let user =  await model.findOneAndDelete({ _id : req.user._id }).exec();
+       await App.deleteMany({ _id : { $in : user.application_list} })
        if(user.isRecruiter)
             await App.deleteMany({ _id : { $in : user.job_list} });
-    
        return res.status(200).send(`${model} removed`)
     
     }catch(e){
