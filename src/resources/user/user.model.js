@@ -63,6 +63,20 @@ userSchema.pre('save',function(next){
     })
 })
 
+userSchema.pre('findOneAndUpdate', function(next) {
+    const update = this.getUpdate();
+    if (update.password && update.password.length !== 0 ) {
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(update.password, salt, (err, hash) => {
+          this.getUpdate().password = hash;
+          next();
+        })
+      })
+    } else {
+      next();
+    }
+  });
+
 
 userSchema.methods.checkPassword = function(password){
     const passwordHash = this.password;
