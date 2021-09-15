@@ -100,7 +100,6 @@ body {
 }
 
 .result {
-    width: 100%;
     margin-top : 20px;
     margin-left : 70px;
     display: grid;
@@ -229,7 +228,7 @@ body {
     display: grid;
     margin : 2% 20% ;
     grid-gap : 10px;
-    grid-template-columns: 200px 500px 300px;
+    grid-template-columns: 200px 500px 200px;
 
         input[type = "text"]{
             grid-column : 2/3;
@@ -478,7 +477,8 @@ body {
     }
 
 .btn-del-profile{
-        margin: 0% 50% 2% 50%;
+        margin-left : 45%;
+        margin-top : 5%;
         color: white;
         background: #ef5d5d;
         width: 150px;

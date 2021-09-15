@@ -98,7 +98,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .result {
-  width: 100%;
   margin-top: 20px;
   margin-left: 70px;
   display: grid;
@@ -238,7 +237,7 @@ h1, h2, h3, h4, h5, h6 {
   display: grid;
   margin: 2% 20%;
   grid-gap: 10px;
-  grid-template-columns: 200px 500px 300px;
+  grid-template-columns: 200px 500px 200px;
 }
 .post-job-form input[type=text] {
   grid-column: 2/3;
@@ -481,7 +480,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-del-profile {
-  margin: 0% 50% 2% 50%;
+  margin-left: 45%;
+  margin-top: 5%;
   color: white;
   background: #ef5d5d;
   width: 150px;
