@@ -10,9 +10,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .header-main {
-  background-image: url("./images/logo.svg");
   background-color: #318488;
-  height: 150px;
+  height: 130px;
 }
 .header-main .nav-bar {
   display: flex;
@@ -23,7 +22,7 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
   font-weight: 500;
   font-size: 45px;
-  margin: 38px 37px 37px 47px;
+  margin: 30px 37px 37px 47px;
 }
 .header-main .nav-bar button {
   margin: 25px 15px 15px 15px;
@@ -99,7 +98,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .result {
   margin-top: 20px;
-  margin-left: 70px;
+  margin-left: 125px;
   display: grid;
   grid-template-columns: repeat(3, 400px);
 }
