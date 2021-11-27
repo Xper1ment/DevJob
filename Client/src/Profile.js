@@ -24,7 +24,7 @@ function Profile(){
     const [data , { } ,setUrlToDelete ] = useJobApi(''); 
     const myref = useRef();
     const windowSize = useWindowSize();
-
+    
     const showModal = () => {
         setModalState( true );
         };
@@ -128,13 +128,13 @@ function Profile(){
                 
                     {
                         (isRecruiter)?
-                            (   (jobList.length !== 0 )?
+                            (   ( jobList.length !== 0 )?
                                     (<div className = 'profile-recruiter'>
                                         <label id = "label-job-list" >Posted jobs by you : </label>
                                         <div>
                                             {   
                                                 jobList.map((job) =>
-                                                            {  return (windowSize.width > 500)?
+                                                            {  return ( windowSize.width > 900 )?
                                                                 <div>
                                                                     <span>{job.title}</span>
                                                                     <span>{job.location}</span>

@@ -514,7 +514,7 @@ h1, h2, h3, h4, h5, h6 {
   left: -45px;
 }
 
-@media screen and (max-width: 426px) {
+@media screen and (max-width: 900px) {
   #header-menu-icon {
     display: block;
     width: 2rem;
@@ -554,6 +554,7 @@ h1, h2, h3, h4, h5, h6 {
   .search {
     flex-flow: column wrap;
     z-index: 0;
+    margin-left: calc((100vw - 80vw)/2);
   }
   .search #inpjtype, .search #inploc, .search #inptitle {
     width: 80vw;

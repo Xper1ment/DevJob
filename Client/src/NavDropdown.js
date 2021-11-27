@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState , useEffect } from 'react';
+import { Link , useHistory } from 'react-router-dom';
 
-const NavDropdown =({ list , show , setNavMenuState ,handleLogout }) =>{
+const NavDropdown =({ list , show , setNavMenuState , handleLogout }) =>{
 
+    const history = useHistory();
     const hideNavMenu = () =>{
         setNavMenuState(!show);
     }
@@ -10,6 +11,13 @@ const NavDropdown =({ list , show , setNavMenuState ,handleLogout }) =>{
         hideNavMenu();
         handleLogout();
     }
+    useEffect(() => {
+        return history.listen(location => {
+          if (history.action === 'POP') {
+              hideNavMenu();
+          }
+        })
+      }, [])
 
     if(!show)
         return <></>

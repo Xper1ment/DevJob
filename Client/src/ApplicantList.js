@@ -47,6 +47,10 @@ const ApplicantList = (props) =>{
 
         hidePrompt();
     }
+    const get_Time = (date) =>{
+        let postDate= new Date(date); 
+        return `${postDate.getDate()}.${postDate.getMonth()}.${postDate.getFullYear()}` 
+    }
     
     useEffect(()=>{
         async function getList(){
@@ -95,7 +99,7 @@ const ApplicantList = (props) =>{
                 {
                     List.map((item)=>
                         (
-                            (windowSize.width > 500)?
+                            (windowSize.width > 900)?
                                 <div>
                                     {(!isRecruiter)?
                                         (<>
@@ -103,7 +107,7 @@ const ApplicantList = (props) =>{
                                             <span>{item.location}</span>
                                         </>):(<>
                                                 <span>{item.name}</span>
-                                                <span>{item.date_applied}</span>
+                                                <span>{get_Time(item.date_applied)}</span>
                                             </>)
                                     }
                                     <>
@@ -150,7 +154,7 @@ const ApplicantList = (props) =>{
                                             <span>{item.location}</span>
                                         </>):(<>
                                                 <span>{item.name}</span>
-                                                <span>{item.date_applied}</span>
+                                                <span>{get_Time(item.date_applied)}</span>
                                             </>)
                                     }
                                     <span>{ item.isViewed }</span>            
