@@ -15,6 +15,7 @@ import Form from './Form';
 import JobApplication from './JobApplication';
 import ApplicantList from './ApplicantList';
 import HeaderLayout from './HeaderLayout';
+import UpdateJob from './UpdateJob';
 
 function App(){
   //fsdffs  
@@ -28,6 +29,7 @@ function App(){
         <HeaderLayout path = '/form' component = {Form}/>
         <HeaderLayout path = '/applicants/:id' component = {ApplicantList}/>
         <HeaderLayout path = '/application' component = {JobApplication}/>
+        <HeaderLayout path = '/update-job' component = {UpdateJob}/>
         <HeaderLayout path = '/post-job/' component = {PostJob}/>
             <HeaderLayout path = "/description/:id" component = {Description}/> 
       </Switch>

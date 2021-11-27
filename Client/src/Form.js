@@ -3,13 +3,17 @@ import { useState ,  useEffect , useContext , useRef } from 'react';
 import  useJobApi  from './useJobApi';
 import Modal from './Modal';
 import useRequireAuth from './useRequireAuth';
-import { Redirect } from 'react-router-dom'
+import { Redirect , useHistory } from 'react-router-dom';
+import useWindowSize from './useWindowSize';
 
-const Form = ({ type , data , showForm = false, myref }) => {
-         
+
+const Form = ({ type , data , showForm = false, myref = null }) => {
+    
     const { isLoggedIn , isRecruiter } = useRequireAuth();
     const [ show , setModalState ] = useState(showForm);
     const [ User , { isLoading , isError }, setUrl ] = useJobApi('/api/user');
+    const windowSize = useWindowSize();
+    const history = useHistory();
     const [ userInfo , setUserInfo ] = useState({
         name  : "",
         email : "",
@@ -131,77 +135,79 @@ const Form = ({ type , data , showForm = false, myref }) => {
         return <div>Loading...</div>
     if( !isLoggedIn )
         return <Redirect to = '/login'/>
-        
-    return(
-        <>{
+    
 
-            show && <Modal show= {show} hideModal = { hideModal } setModalState = { setModalState } myref = {myref} >
-                <button className = "mdl-cls-btn" onClick = { hideModal }>x</button>
-                <form className = 'form'
-                      onSubmit ={(e)=>handleSubmit(e)}>
-
-                        <label>Name:</label>
-                        <input  name = 'name'
-                                value = {name}
-                                onChange = {handleInputChange}
-                                style = {(inputError('name'))?{ 'borderColor' : 'red' }:{'borderColor' : 'default'}}
-                                />
-                        
-                        <label>Email:</label>
-                        <input  name = 'email'
-                                value = {email}
-                                onChange = {handleInputChange}
-                                style = {(inputError('email'))?{ 'borderColor' : 'red' }:{'borderColor' : 'default'}}
-                                />
-
-                        {( type === 'EDIT')?
-                        (<>
-                                <label> New Password:</label>  
-                                <input  name = 'password'
-                                        value = {password}
+    if(show)
+        return(
+                <Modal show= {show} hideModal = { hideModal } setModalState = { setModalState } myref = {myref} >
+                        <button className = "mdl-cls-btn" onClick = { hideModal }>x</button>
+                        <form   className = 'form'
+                                onSubmit ={(e)=>handleSubmit(e)}>
+            
+                                <label>Name:</label>
+                                <input  name = 'name'
+                                        value = {name}
                                         onChange = {handleInputChange}
+                                        style = {(inputError('name'))?{ 'borderColor' : 'red' }:{'borderColor' : 'default'}}
                                         />
-                        </>):""
-                        }
-                        {(isRecruiter)?        
-                                (<>
-                                        <label>Designation:</label>
-                                        <input  name = 'designation'
-                                                value = {designation}
-                                                onChange = {handleInputChange}
-                                                style = {(inputError('designation'))?{ 'borderColor' : 'red' }:{'borderColor' : 'default'}}  
-                                                />
-                                </>):
-                                (<>     
-                                        <label>Skills:</label>
-                                                
-                                                {(skills)?(skills.map((item,idx) =>
-                                                                (<>
-                                                                        <input value = {item || " " } onChange = {(e)=> handleSkillInputChange(e , idx)}/>
-                                                                        <button id = 'btn' onClick = {(e) => handleRemoveSkills(e, idx)}>x</button>
-                                                                </>)
-                                                        )):
-                                                        (new Array(5).fill(" ").map((item,idx)=>
-                                                                (<>
-                                                                        <input value = {item || " " } onChange = {(e)=> handleSkillInputChange(e , idx)}/>
-                                                                        <button id = 'btn' onClick = {(e) => handleRemoveSkills(e, idx)}>x</button>
-                                                                </>)
-                                                        ))
-                                                        
-                                                }         
                                 
-                                        <label>Year Of Experience</label> 
-                                        <input  name = 'YOE'
-                                                value = {YOE}
-                                                onChange = {handleInputChange}
-                                                style = {(inputError('YOE'))?{ 'borderColor' : 'red' }:{'borderColor' : 'default'}}
-                                                />
-                                </>)                           
-                        } 
-                        <input id = "submit" type = 'submit'/>
-                        {(isError)?<div className = "error">{User.errors[0].msg}</div>:""}
-                </form>
-            </Modal>    
-        }</>)
+                                <label>Email:</label>
+                                <input  name = 'email'
+                                        value = {email}
+                                        onChange = {handleInputChange}
+                                        style = {(inputError('email'))?{ 'borderColor' : 'red' }:{'borderColor' : 'default'}}
+                                />
+                
+                                {( type === 'EDIT')?
+                                        (<>
+                                                <label> New Password:</label>  
+                                                <input  name = 'password'
+                                                        value = {password}
+                                                        onChange = {handleInputChange}
+                                                        />
+                                        </>):""
+                                }
+                                        {(isRecruiter)?        
+                                                (<>
+                                                        <label>Designation:</label>
+                                                        <input  name = 'designation'
+                                                                value = {designation}
+                                                                onChange = {handleInputChange}
+                                                                style = {(inputError('designation'))?{ 'borderColor' : 'red' }:{'borderColor' : 'default'}}  
+                                                                />
+                                                </>):
+                                                (<>     
+                                                        <label>Skills:</label>
+                                                                
+                                                                {(skills)?(skills.map((item,idx) =>
+                                                                                (<>
+                                                                                        <input value = {item || " " } onChange = {(e)=> handleSkillInputChange(e , idx)}/>
+                                                                                        <button id = 'btn' onClick = {(e) => handleRemoveSkills(e, idx)}>x</button>
+                                                                                </>)
+                                                                        )):
+                                                                        (new Array(5).fill(" ").map((item,idx)=>
+                                                                                (<>
+                                                                                        <input value = {item || " " } onChange = {(e)=> handleSkillInputChange(e , idx)}/>
+                                                                                        <button id = 'btn' onClick = {(e) => handleRemoveSkills(e, idx)}>x</button>
+                                                                                </>)
+                                                                        ))
+                                                                        
+                                                                }         
+                                                
+                                                        <label>Year Of Experience</label> 
+                                                        <input  name = 'YOE'
+                                                                value = {YOE}
+                                                                onChange = {handleInputChange}
+                                                                style = {(inputError('YOE'))?{ 'borderColor' : 'red' }:{'borderColor' : 'default'}}
+                                                                />
+                                                </>)                           
+                                        }              
+                                <input id = "submit" type = 'submit'/>
+                                {(isError)?<div className = "error">{User.errors[0].msg}</div>:""}
+                        </form>
+                </Modal>        
+        )
+    return <></>    
+
 }
 export default Form;

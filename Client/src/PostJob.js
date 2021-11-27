@@ -14,10 +14,11 @@ function PostJob(props){
         url : "",
         company_url : "",
         post_date : new Date(),
-    }); 
-    const {isRecruiter , isLoggedIn } = useRequireAuth(); 
+    });
 
-    const DEFAULT_PROPS = { httpMethodType : 'POST', jobID : null }
+    const { isRecruiter , isLoggedIn } = useRequireAuth(); 
+
+    const DEFAULT_PROPS = { httpMethodType : 'POST', jobID : null };
     
     const { httpMethodType , jobID } = (props.location.state === undefined)?DEFAULT_PROPS:props.location.state;
     
@@ -38,7 +39,6 @@ function PostJob(props){
                 ...prevState,
                 [name] : value
             }))
-
     }
 
     useEffect(()=>{
@@ -51,15 +51,17 @@ function PostJob(props){
     },[isError , jobData.errors ])
 
     useEffect(()=>{
-            if(Object.keys(jobData).length !== 0){
-               setJobInfo(jobData)
+            let isMounted = true;
+            if( Object.keys(jobData).length !== 0 && isMounted ){
+               setJobInfo(jobData);
             }
+            return () =>{ isMounted = false }
     }
     ,[ jobData ])
-    //{(isError)?<div className = "error">{jobData.errors[0].msg}</div>:""}}
-    if( !isLoggedIn || !isRecruiter )
-        return <Redirect to = '/login'/>
-    if( isError === false)
+
+    if( !isLoggedIn && !isRecruiter )
+        return <Redirect to = '/recuiter-login'/>
+    if( isError === false )
         return <Redirect to = '/profile'/>
 
     return(
@@ -91,13 +93,13 @@ function PostJob(props){
                             }>
             
                 
-                    <span>Job Title: </span>
-                    <input  value = {title}
-                            type = 'text'
-                            onChange = {handleInput}
-                            name = 'title'
-                            style = {( 'title' in errors )?{ 'borderColor' : 'red' }:{}}/>
-                    <span id = "post-job-error">{errors.title||""}</span>        
+                <span>Job Title: </span>
+                <input  value = {title}
+                        type = 'text'
+                        onChange = {handleInput}
+                        name = 'title'
+                        style = {( 'title' in errors )?{ 'borderColor' : 'red' }:{}}/>
+                <span id = "post-job-error">{errors.title||""}</span>        
                             
             
                 <span>Company Name: </span>

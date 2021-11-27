@@ -10,6 +10,8 @@ import EditIcon from '@material-ui/icons/Edit';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import ListIcon from '@material-ui/icons/List';
 import DeletePrompt from './DeletePrompt';
+import CustomLink from './CustomLink';
+import useWindowSize from './useWindowSize';
 
 function Profile(){
 
@@ -21,6 +23,7 @@ function Profile(){
     const [ canShowDelPrompt , setDelPromptState ] = useState(false); 
     const [data , { } ,setUrlToDelete ] = useJobApi(''); 
     const myref = useRef();
+    const windowSize = useWindowSize();
 
     const showModal = () => {
         setModalState( true );
@@ -60,6 +63,7 @@ function Profile(){
 
         hideDelPrompt();
     }
+
     useEffect(()=>{
         setJobListState(userData.job_list);
     },[userData.job_list])
@@ -79,20 +83,18 @@ function Profile(){
         <>
                 <div className = "profile-header">
                     <h2 id = "profile-title">Profile</h2>
-                    <EditIcon onClick = {showModal} 
-                    style = {{  "color": "cyan",
-                                "font-size": "20px",
-                                "position": "relative",
-                                "top": "25px",
-                                "left": "-45px"
-                            }}/>
+                    
+                <EditIcon onClick = {showModal}
+                            className = 'prof-edit-btn'/>
+                
+                    
                 </div>           
-           
+
                 <Form  type = 'EDIT' 
-                        data = {null}
-                        myref = {myref}
-                        showForm = {show}/>            
-                        
+                       data = {null}
+                       myref = {myref}
+                       showForm = {show}/>
+                
                 <hr/>
                 <div className = "profile-body">
                     <label>Name:</label>
@@ -132,51 +134,64 @@ function Profile(){
                                         <div>
                                             {   
                                                 jobList.map((job) =>
-                                                            (<div>
-                                                                <span>{job.title}</span>
-                                                                <span>{job.location}</span>
-                                                                <span>{get_Time(job.post_date)}</span>
-                                                                
-                                                                <DeleteIcon    
-                                                                    style = {{  "color" : "red" }}
-                                                                    onClick = { showDelPrompt }
-                                                                />
-                                                                
-                                                                <Link to = {`/applicants/${job._id}`}>
-                                                                        <ListIcon style ={{ color : 'cyan' }}/>
-                                                                </Link>
-                                                                <Link to = {{
-                                                                            pathname:'/post-job',
-                                                                            state:{
-                                                                                httpMethodType : 'PUT',
-                                                                                jobID : job._id
-                                                                            }
-                                                                        }}>
-                                                                            <EditIcon style = {{ color : 'cyan',
-                                                                                                 fontSize : '17px'}}/>
-                                                                </Link>
-                                                            
-                                                                <Link to = {`/description/${job._id}`}>
-                                                                    <KeyboardArrowRightIcon style ={{ color : 'cyan'}}/>
-                                                                </Link>
-                                                                {   
-                                                                    canShowDelPrompt && 
-                                                                        <Modal  show = { canShowDelPrompt } 
-                                                                                hideModal = { hideDelPrompt }
-                                                                                setModalState = { setDelPromptState }
-                                                                                myref = { myref }>
-                                                                            <div className = "delete-prompt">
-                                                                                <span>Are you sure you want to delete this post?</span>
-                                                                                <div>
-                                                                                    <button className = "btn-gnl btn-cancel" onClick = {hideDelPrompt}>Cancel</button>
-                                                                                    <button className = "btn-gnl btn-delete" onClick = {() =>handleDeleteListItem(job._id)}>Delete</button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </Modal>
-                                                                }
+                                                            {  return (windowSize.width > 500)?
+                                                                <div>
+                                                                    <span>{job.title}</span>
+                                                                    <span>{job.location}</span>
+                                                                    <span>{get_Time(job.post_date)}</span>
+                                                                    {(canShowDelPrompt) &&   
+                                                                                    <Modal  show = { canShowDelPrompt } 
+                                                                                            hideModal = { hideDelPrompt }
+                                                                                            setModalState = { setDelPromptState }
+                                                                                            myref = { myref }>
+                                                                                        <div className = "delete-prompt">
+                                                                                            <span>Are you sure you want to delete this post?</span>
+                                                                                            <div>
+                                                                                                <button className = "btn-gnl btn-cancel" 
+                                                                                                        onClick = { hideDelPrompt }>
+                                                                                                    Cancel
+                                                                                                </button>
+                                                                                                <button className = "btn-gnl btn-delete" 
+                                                                                                        onClick = {() =>handleDeleteListItem(job._id)}>
+                                                                                                    Delete
+                                                                                                </button>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </Modal>
+                                                                    }
+                                                                    <div id = 'icon-box'>
+                                                                        <DeleteIcon    
+                                                                            style = {{  "color" : "red" }}
+                                                                            onClick = { showDelPrompt }
+                                                                        />
+                                                                        <Link to = {`/applicants/${job._id}`}>
+                                                                                <ListIcon style ={{ color : 'cyan' }}/>
+                                                                        </Link>
+                                                                        <Link to = {{
+                                                                                    pathname:'/update-job',
+                                                                                    state:{
+                                                                                        jobID : job._id
+                                                                                    }
+                                                                                }}>
+                                                                                    <EditIcon style = {{ color : 'cyan',
+                                                                                                        fontSize : '17px'}}/>
+                                                                        </Link>
+                                                                    
+                                                                        <Link to = {`/description/${job._id}`}>
+                                                                            <KeyboardArrowRightIcon style ={{ color : 'cyan'}}/>
+                                                                        </Link>
+                                                                    </div>
 
-                                                            </div>)
-                                                )
+                                                                </div>:
+                                                                <CustomLink tag = 'div' to = {`/applicants/${job._id}`}>
+                                                                    <>
+                                                                        <span>{job.title}</span>
+                                                                        <span>{job.location}</span>
+                                                                        <span>{get_Time(job.post_date)}</span>                                                                    
+                                                                    </>
+                                                                </CustomLink>
+                                                            }
+                                                        )
                                             }
                                         </div>            
                                     </div>):(<div>No jobs posted by you.</div>)

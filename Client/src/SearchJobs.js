@@ -49,7 +49,7 @@ function SearchJobs(){
 
                     <div id = 'inpjtype' >
                         <div>
-                        <span>Full Time</span>
+                        <label htmlFor = 'isFullTime' >Full Time</label>
                         <input  name = 'isFullTime'
                                 type = 'checkbox' 
                                 checked = { isFullTime } 

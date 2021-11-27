@@ -5,8 +5,7 @@ import useRequireAuth  from './useRequireAuth';
 import useJobApi from './useJobApi';
 import Modal from './Modal';
 import Form from './Form';
-
-
+import useWindowSize from './useWindowSize';
 
 const Description = () =>{
         const { id } = useParams();
@@ -16,13 +15,14 @@ const Description = () =>{
         const [ show , setModalState ] = useState(false);
         const URL = ( isLoggedIn )?`/api/job/isApplied?id=${id}`:"";
         const [{ isApplied }] = useJobApi( URL , true );
+        const windowSize = useWindowSize();
 
         const showModal = () => {
             setModalState( true);
           };
         
         const hideModal = () =>{
-            setModalState( false);
+            setModalState( false );
         };
         
         const getMarkUp = (html) =>{
@@ -53,7 +53,7 @@ const Description = () =>{
                 description ,
                 company,
                 url,
-                company_url , 
+                company_url, 
                 location,  
                } = changeKeyName();
         
@@ -63,37 +63,41 @@ const Description = () =>{
                 <div className = 'header'>
                     <h2>{company}</h2>
                     {(company_url)?
-                        <a target = '_blank' href = {company_url}>    
+                        <a target = '_blank' href = {`https://${company_url}`}>    
                             <button type = 'button'>Company Site</button>
                         </a>:""
                     }     
                 </div>
                 <div className = 'body'>
-                    <div className = 'title'>
-                        <h1>{title}</h1>
-                        {
-                            (/[A-Za-z]/.test(id))?
+                    <div className = 'desp-title-box'>
+                        <div className = 'title'>
+                            <h1>{title}</h1>
+                            {
+                                (/[A-Za-z]/.test(id))?
+                                        (<>
+                                            <Form type = 'APPLY' 
+                                                    data = {{ id,
+                                                            title ,
+                                                            company ,
+                                                            location }}
+                                                    showForm = { show }
+                                                    myref = { myref }/>
+                                                
+                                            {
+                                                (isApplied)?
+                                                    (<button style = {{ backgroundColor : "green"}}>Applied Already!</button>):
+                                                    (<button onClick = { showModal }>Apply</button>)
+                                                        
+                                                    
+                                            }
+                                        </>):
                                     (<>
-                                        <Form   type = 'APPLY' 
-                                                data = {{ id,
-                                                        title ,
-                                                        company ,
-                                                        location }}
-                                                showForm = { show }
-                                                myref = { myref }/>
-                                               
-                                        {
-                                            (isApplied)?
-                                                (<button style = {{ backgroundColor : "green"}}>Applied Already!</button>):
-                                                (<button onClick = {showModal}>Apply</button>)
-                                        }
-                                    </>):
-                                (<>
-                                    <a target = '_blank' href = {url}>
-                                        <button>Apply at Reed</button>
-                                    </a>
-                                </>)
-                        }
+                                        <a target = '_blank' href = {url}>
+                                            <button>Apply at Reed</button>
+                                        </a>
+                                    </>)
+                            }
+                        </div>
                     </div>
                     <div className = 'description' 
                          dangerouslySetInnerHTML = {getMarkUp(description)}

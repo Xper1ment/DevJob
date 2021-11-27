@@ -8,6 +8,8 @@ import DeletePrompt from './DeletePrompt';
 import useJobApi from './useJobApi';
 import Modal from './Modal';
 import DeleteIcon from '@material-ui/icons/Delete';
+import useWindowSize from './useWindowSize';
+import CustomLink from './CustomLink';
 
 const ApplicantList = (props) =>{
     
@@ -19,6 +21,7 @@ const ApplicantList = (props) =>{
     const [ isError , setIsError ] = useState(false);
     const [ canShow , setPromptState ] = useState(false); 
     const [ data ,{ }, setUrl ] = useJobApi();
+    const windowSize = useWindowSize();
     const showPrompt = () => {
         setPromptState( true );
     };
@@ -92,49 +95,66 @@ const ApplicantList = (props) =>{
                 {
                     List.map((item)=>
                         (
-                            <div>
-                                {(!isRecruiter)?
-                                    (<>
-                                        <span>{item.title}</span>
-                                        <span>{item.location}</span>
-                                    </>):(<>
-                                            <span>{item.name}</span>
-                                            <span>{item.date_applied}</span>
-                                          </>)
-                                }
-                                <>
-                                    <DeleteIcon    
-                                        style = {{  "color" : "red" }}
-                                        onClick = { showPrompt }
-                                    />
-
-                                    <span>{ item.isViewed }</span>
-                                    <Link to = {{   pathname : "/application" ,
-                                                    state : {item} 
-                                                }}
-                                        >
-                                        <KeyboardArrowRightIcon
-                                            style = {{ color : 'cyan' }}
+                            (windowSize.width > 500)?
+                                <div>
+                                    {(!isRecruiter)?
+                                        (<>
+                                            <span>{item.title}</span>
+                                            <span>{item.location}</span>
+                                        </>):(<>
+                                                <span>{item.name}</span>
+                                                <span>{item.date_applied}</span>
+                                            </>)
+                                    }
+                                    <>
+                                        <DeleteIcon    
+                                            style = {{  "color" : "red" }}
+                                            onClick = { showPrompt }
                                         />
-                                    </Link>
 
-                                </>
-                                {   
-                                    canShow && 
-                                        <Modal  show = { canShow } 
-                                                hideModal = { hidePrompt }
-                                                setModalState = { setPromptState }
-                                                myref = { myref }>
-                                            <div className = "delete-prompt">
-                                                <span>Are you sure you want to delete this?</span>
-                                                <div>
-                                                    <button className = "btn-gnl btn-cancel" onClick = {hidePrompt}>Cancel</button>
-                                                    <button className = "btn-gnl btn-delete" onClick = {() =>handleDeleteListItem(item._id)}>Delete</button>
+                                        <span>{ item.isViewed }</span>
+                                        <Link to = {{   pathname : "/application" ,
+                                                        state : {item} 
+                                                    }}
+                                            >
+                                            <KeyboardArrowRightIcon
+                                                style = {{ color : 'cyan' }}
+                                            />
+                                        </Link>
+
+                                    </>
+                                    {   
+                                        canShow && 
+                                            <Modal  show = { canShow } 
+                                                    hideModal = { hidePrompt }
+                                                    setModalState = { setPromptState }
+                                                    myref = { myref }>
+                                                <div className = "delete-prompt">
+                                                    <span>Are you sure you want to delete this?</span>
+                                                    <div>
+                                                        <button className = "btn-gnl btn-cancel" onClick = {hidePrompt}>Cancel</button>
+                                                        <button className = "btn-gnl btn-delete" onClick = {() =>handleDeleteListItem(item._id)}>Delete</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </Modal>
-                                }
-                            </div>
+                                            </Modal>
+                                    }
+                                </div>:
+                                <CustomLink tag = 'div'
+                                            to = {{   pathname : "/application" ,
+                                                        state : {item} 
+                                                 }}>
+
+                                    {(!isRecruiter)?
+                                        (<>
+                                            <span>{item.title}</span>
+                                            <span>{item.location}</span>
+                                        </>):(<>
+                                                <span>{item.name}</span>
+                                                <span>{item.date_applied}</span>
+                                            </>)
+                                    }
+                                    <span>{ item.isViewed }</span>            
+                                </CustomLink>
                         )
                     )
                 }

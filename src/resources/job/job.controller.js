@@ -104,7 +104,7 @@ const getJobDescription = async ( req , res ) => {
                 
                 if(/[a-zA-Z]/.test(id)){        
                         const data = await Job.findOne({ _id : id })
-                                        .exec();                                         
+                                        .exec();                                        
                         return res.status(200).json(data);
                 }
                 
